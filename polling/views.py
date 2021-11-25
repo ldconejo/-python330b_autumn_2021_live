@@ -6,17 +6,19 @@ from polling.models import Poll
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
+
 class PollListView(ListView):
     model = Poll
-    template_name = 'polling/list.html'
+    template_name = "polling/list.html"
+
 
 class PollDetailView(DetailView):
     model = Poll
-    template_name = 'polling/detail.html'
+    template_name = "polling/detail.html"
 
     def get(self, request, *args, **kwargs):
         poll = self.get_object()
-        context = {'polli': poll, 'object': poll}
+        context = {"polli": poll, "object": poll}
         return render(request, "polling/detail.html", context)
 
     def post(self, request, *args, **kwargs):
@@ -28,8 +30,9 @@ class PollDetailView(DetailView):
             poll.score -= 1
         poll.save()
 
-        context = {'polli': poll, 'object': poll}
+        context = {"polli": poll, "object": poll}
         return render(request, "polling/detail.html", context)
+
 
 def detail_view(request, poll_id):
     try:
@@ -44,5 +47,5 @@ def detail_view(request, poll_id):
             poll.score -= 1
         poll.save()
 
-    context = {'poll': poll}
-    return render(request, 'polling/detail.html', context)
+    context = {"poll": poll}
+    return render(request, "polling/detail.html", context)
